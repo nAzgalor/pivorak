@@ -4,19 +4,23 @@
       h3.pull-left #{@bus.start_place} - #{@bus.end_place}
       = link_to 'Go back', root_path, class: 'btn btn-default pull-right'
     .panel-body
-      .row = form_tag buy_ticket_bus_path, class: 'form-horizontal'
-        .col-lg-12
-          h1 Available seats
+      .row 
+        - if @available_seats.any?
+          = form_tag buy_ticket_bus_path, class: 'form-horizontal'
+            .col-lg-12
+              h1 Available seats
 
-        - @available_seats.each do |number_of_seat|
-          .col-md-3
-            label.radio-inline
-              = radio_button_tag 'number_of_seat', number_of_seat
-              | number of seat #{number_of_seat}
+            - @available_seats.each do |number_of_seat|
+              .col-md-3
+                label.radio-inline
+                  = radio_button_tag 'number_of_seat', number_of_seat
+                  | number of seat #{number_of_seat}
 
-        .col-lg-12 = submit_tag 'Buy ticket', class: 'btn btn-primary'
-      
+            .col-lg-12 = submit_tag 'Buy ticket', class: 'btn btn-primary'
+        - else
+          .col-lg-12: h1 No availables seats      
       hr
+
       .row
         .col-lg-12
           dl.dl-horizontal
