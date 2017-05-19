@@ -4,7 +4,7 @@ class Bus < ApplicationRecord
 
   validates :start_place, :end_place, :start_at, :end_at, :number_of_seats, presence: true
 
-  def self.start_place_list
+  def self.generation_seat_list
     pluck(:start_place).uniq
   end
 end

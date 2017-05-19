@@ -1,4 +1,10 @@
 .row: .col-lg-offset-1.col-lg-10
+  - if flash[:notice].present?
+    .alert.alert-warning.alert-dismissible role='alert'
+      = notice
+      button.close data-dismiss='alert'
+        span aria-hidden='true' &times;
+
   = link_to 'Add bus', new_bus_path, class: 'btn btn-primary btn-block add-bus-btn' if current_user.admin?
 
   hr
@@ -33,4 +39,7 @@
           td = b.end_place
           td = b.end_at.to_formatted_s(:long)
           td = b.number_of_seats
-          td = link_to 'Show bus', bus_path(b), class: 'btn btn-success'
+          td 
+            = link_to 'Show bus', bus_path(b), class: 'btn btn-info'
+            = link_to 'Edit bus', edit_bus_path(b), class: 'btn btn-success'
+            = link_to 'Delete bus', bus_path(b), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you realy?' }
