@@ -13,6 +13,12 @@ class BusesController < ApplicationController
     all_number_of_seats_in_bus = (1..@bus.number_of_seats).to_a
     busy_place = @bus.bus_user_tickets.pluck(:number_of_seat)
     @available_seats = all_number_of_seats_in_bus - busy_place
+    @tickets = @bus.bus_user_tickets.map do |t| 
+      { email: t.user.email,
+        number_of_seat: t.number_of_seat,
+        buy_time: t.created_at
+      }
+    end
   end
 
   def edit
@@ -28,7 +34,7 @@ class BusesController < ApplicationController
 
   def destroy
     @bus.destroy
-    redirect_to admin_posts_path, notice: 'New was successfully destroyed.'
+    redirect_to buses_path, notice: 'Bus was deleted'
   end
 
   def buy_ticket

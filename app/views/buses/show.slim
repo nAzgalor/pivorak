@@ -3,6 +3,7 @@
     .panel-heading.clearfix
       h3.pull-left #{@bus.start_place} - #{@bus.end_place}
       = link_to 'Go back', root_path, class: 'btn btn-default pull-right'
+
     .panel-body
       .row 
         - if @available_seats.any?
@@ -42,3 +43,18 @@
           dl.dl-horizontal
             dt Bus seats: #{@bus.number_of_seats}
             dd Available seats #{@available_seats.size}
+
+  - if current_user.admin?
+    table.table
+      caption.text-center: h2 Users in the bus
+      thead
+        tr
+          td Email
+          td Number of seat
+          td Buy time
+      tbdoy
+        - @tickets.each do |ticket|
+          tr
+            td = ticket[:email]
+            td = ticket[:number_of_seat]
+            td = ticket[:buy_time].to_formatted_s(:long)
