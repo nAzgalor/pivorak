@@ -1,0 +1,25 @@
+.row: .col-lg-offset-1.col-lg-10
+  .panel.panel-primary
+    .panel-heading.clearfix
+      h5.pull-left My tickets
+      = link_to 'Go back', root_path, class: 'btn btn-default pull-right'
+
+  table.table
+    thead
+      tr
+        td Start place
+        td Start at
+        td End place
+        td End at
+        td number of sit
+        td Buy time
+    tbdoy
+      - @tickets.each do |ticket|
+        tr
+          td = ticket[:start_place]
+          td = ticket[:start_at].to_formatted_s(:long)
+          td = ticket[:end_place]
+          td = ticket[:end_at].to_formatted_s(:long)
+          td = ticket[:number_of_seat]
+          td = ticket[:buy_time].to_formatted_s(:long)
+            

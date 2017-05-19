@@ -1,4 +1,4 @@
-.row: .col-lg-offset-2.col-lg-8
+.row: .col-lg-offset-1.col-lg-10
   = link_to 'Add bus', new_bus_path, class: 'btn btn-primary btn-block add-bus-btn' if current_user.admin?
 
   hr
@@ -23,7 +23,7 @@
       td End place
       td End at
       td Count places
-      td 
+      td = link_to 'Show my tickets', user_path(current_user), class: 'btn btn-info' if current_user.present?
 
     tbody
       - @buses.each do |b|
