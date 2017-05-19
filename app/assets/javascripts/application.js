@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require jquery-inputmask/jquery.inputmask.bundle-custom
+
+$(document).ready(function(){
+  $('.input-mask-datetime').inputmask('datetime');
+  $('.input-mask-date').inputmask('date');
+});

@@ -1,0 +1,34 @@
+.row: .col-lg-offset-2.col-lg-8
+  = link_to 'Add bus', new_bus_path, class: 'btn btn-primary btn-block add-bus-btn' if current_user.admin?
+
+  hr
+  = form_tag buses_path, class: 'form-inline search-form', method: :get
+    .form-group
+      label Start place
+      = select_tag 'start_place', options_for_select(@start_places, params[:start_place]), class: 'form-control'
+
+    .form-group
+      label Start at
+      = text_field_tag 'start_at', nil, class: 'form-control input-mask-date', placeholder: 'dd/mm/yyyy'
+    
+    .form-group = submit_tag 'Search', class: 'btn btn-default'
+
+    .form-group = link_to 'Clear Search', root_path, class: 'btn btn-primary'
+  hr
+
+  table.table
+    thead
+      td Start place
+      td Start at
+      td End place
+      td End at
+      td Count places
+
+    tbody
+      - @buses.each do |b|
+        tr
+          td =b.start_place
+          td =b.start_at.to_formatted_s(:long)
+          td =b.end_place
+          td =b.end_at.to_formatted_s(:long)
+          td =b.number_of_seats
