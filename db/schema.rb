@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510164650) do
+ActiveRecord::Schema.define(version: 20170519130016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bus_user_tickets", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "bus_id"
+    t.integer  "number_of_seat"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["bus_id"], name: "index_bus_user_tickets_on_bus_id", using: :btree
+    t.index ["user_id", "bus_id", "number_of_seat"], name: "index_bus_user_tickets_on_user_id_and_bus_id_and_number_of_seat", unique: true, using: :btree
+    t.index ["user_id"], name: "index_bus_user_tickets_on_user_id", using: :btree
+  end
+
+  create_table "buses", force: :cascade do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.integer  "number_of_seats"
+    t.string   "start_place"
+    t.string   "end_place"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -33,4 +54,6 @@ ActiveRecord::Schema.define(version: 20170510164650) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "bus_user_tickets", "buses"
+  add_foreign_key "bus_user_tickets", "users"
 end

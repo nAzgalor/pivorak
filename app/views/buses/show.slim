@@ -1,0 +1,40 @@
+.row: .col-lg-8.col-lg-offset-2
+  .panel.panel-primary.buy-ticket
+    .panel-heading.clearfix
+      h3.pull-left #{@bus.start_place} - #{@bus.end_place}
+      = link_to 'Go back', root_path, class: 'btn btn-default pull-right'
+    .panel-body
+      .row = form_tag buy_ticket_bus_path, class: 'form-horizontal'
+        .col-lg-12
+          h1 Available seats
+
+        - @available_seats.each do |number_of_seat|
+          .col-md-3
+            label.radio-inline
+              = radio_button_tag 'number_of_seat', number_of_seat
+              | number of seat #{number_of_seat}
+
+        .col-lg-12 = submit_tag 'Buy ticket', class: 'btn btn-primary'
+      
+      hr
+      .row
+        .col-lg-12
+          dl.dl-horizontal
+            dt Start place
+            dd = @bus.start_place
+
+          dl.dl-horizontal
+            dt Start at
+            dd = @bus.start_at.to_formatted_s(:long)
+
+          dl.dl-horizontal
+            dt End place
+            dd = @bus.end_place
+
+          dl.dl-horizontal
+            dt End at
+            dd = @bus.end_at.to_formatted_s(:long)
+
+          dl.dl-horizontal
+            dt Bus seats: #{@bus.number_of_seats}
+            dd Available seats #{@available_seats.size}
