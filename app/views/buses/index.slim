@@ -9,11 +9,11 @@
 
     .form-group
       label Start at
-      = text_field_tag 'start_at', nil, class: 'form-control input-mask-date', placeholder: 'dd/mm/yyyy'
+      = text_field_tag 'start_at', params[:start_at], class: 'form-control input-mask-date', placeholder: 'dd/mm/yyyy'
     
-    .form-group = submit_tag 'Search', class: 'btn btn-default'
+    .form-group = submit_tag 'Search', class: 'btn btn-success'
 
-    .form-group = link_to 'Clear Search', root_path, class: 'btn btn-primary'
+    .form-group.pull-right = link_to 'Clear Search', root_path, class: 'btn btn-primary'
   hr
 
   table.table
@@ -23,12 +23,14 @@
       td End place
       td End at
       td Count places
+      td 
 
     tbody
       - @buses.each do |b|
         tr
-          td =b.start_place
-          td =b.start_at.to_formatted_s(:long)
-          td =b.end_place
-          td =b.end_at.to_formatted_s(:long)
-          td =b.number_of_seats
+          td = b.start_place
+          td = b.start_at.to_formatted_s(:long)
+          td = b.end_place
+          td = b.end_at.to_formatted_s(:long)
+          td = b.number_of_seats
+          td = link_to 'Show bus', bus_path(b), class: 'btn btn-success'
